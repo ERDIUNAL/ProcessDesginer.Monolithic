@@ -2,27 +2,51 @@ import "./LoginPage.scss";
 
 import React from "react";
 
+import * as Yup from "yup";
 import BaseInput from "../../../../shared/components/form-elements/base-input/BaseInput";
+import { Form, Formik } from "formik";
+
+import jwt_decode from "jwt-decode";
+import LoginService from "../services/loginService";
+import { setItem } from "../../../../core/utils/localStorage";
+import { Login } from "../../../../store/actions/authActions";
 
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
-import { Form, Formik } from "formik";
-import * as Yup from "yup";
+
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { ChangeLanguge } from "../../../../store/actions/languageActions";
 
 export default function LoginPage() {
+  const dispatch = useDispatch();
+  const { t, i18n } = useTranslation();
+  const languageState = useSelector((state) => state.language);
+  const onLanguageClick = () => {
+    if (languageState.activeKey == "tr") {
+      dispatch(ChangeLanguge("en"));
+      i18n.changeLanguage("en");
+    } else {
+      dispatch(ChangeLanguge("tr"));
+      i18n.changeLanguage("tr");
+    }
+  };
+
   const navigate = useNavigate();
-  const initialUserCredentials = { username: "", password: "" };
+  const initialUserCredentials = { email: "", password: "" };
   const loginFormValidationSchema = Yup.object().shape({
-    username: Yup.string().required("Kullanıcı Adı alanını boş geçemezsiniz"),
-    password: Yup.string().required("Şifre alanını boş geçemezsiniz"),
+    email: Yup.string().required(t("login.email.error.empty")),
+    password: Yup.string().required(t("login.password.error.empty")),
   });
+
   const onFormSubmit = (values) => {
-    //let loginService = new LoginService();
-    //loginService.login(values).then((response) => {
-    //  setItem("token", response.data.accessToken.token);
-    //  navigate("/homepage");
-    //});
-    navigate("/homepage");
+    let loginService = new LoginService();
+    loginService.login(values).then((response) => {
+      setItem("token", response.data.accessToken.token);
+      let userInfo = jwt_decode(response.data.accessToken.token);
+      dispatch(Login(userInfo));
+      navigate("/homepage");
+    });
   };
 
   return (
@@ -44,15 +68,15 @@ export default function LoginPage() {
                 <div className="row">
                   <div className="col-12 my-2">
                     <BaseInput
-                      placeholder="Kullanıcı Adı"
-                      name="username"
+                      placeholder={t("login.email")}
+                      name="email"
                       type="text"
                       icon="pi-user"
                     />
                   </div>
                   <div className="col-12 my-2">
                     <BaseInput
-                      placeholder="Şifre"
+                      placeholder={t("login.password")}
                       name="password"
                       type="password"
                       icon="pi-key"
@@ -62,7 +86,7 @@ export default function LoginPage() {
                     <Button
                       className="w-100"
                       type="submit"
-                      label="Giriş"
+                      label={t("login.submit")}
                       severity="info"
                     />
                   </div>
@@ -71,9 +95,17 @@ export default function LoginPage() {
             </Formik>
             <div className="w-100 text-center">
               <p>
-                Don't have account?&nbsp;
-                <Link to="/register">Sign Up</Link>
+                {t("login.haveaccount")}&nbsp;
+                <Link to="/register">{t("login.signup")}</Link>
               </p>
+            </div>
+            <div className="w-100 text-center">
+              <Button
+                label={t("login.language.button")}
+                link
+                className="language-button"
+                onClick={onLanguageClick}
+              />
             </div>
           </div>
         </div>

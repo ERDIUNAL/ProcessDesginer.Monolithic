@@ -8,6 +8,7 @@ import "toastr/build/toastr.min.css";
 import { Route, Routes } from "react-router-dom";
 
 import LoginPage from "./features/auth/login/pages/LoginPage";
+import Homepage from "./shared/pages/homepage/Homepage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="login" element={<LoginPage />} />
+        <Route path="homepage" element={<Homepage />} />
       </Routes>
     </div>
   );
