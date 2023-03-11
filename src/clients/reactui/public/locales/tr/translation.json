@@ -1,10 +1,14 @@
 {
+    "language.select.code":"tr",
+    "language.select.text":"Türkçe",
+    
+    "error.network":"Bağlantı Hatası",
+
     "login.email": "E-Posta",
     "login.email.error.empty": "E-Posta alanını boş geçemezsiniz",
     "login.password": "Şifre",
     "login.password.error.empty": "Şifre alanını boş geçemezsiniz",
     "login.submit": "Giriş",
 	"login.haveaccount": "Üyeliğiniz yok mu?",
-	"login.signup": "Kayıt Olun",
-	"login.language.button": "English"
+	"login.signup": "Kayıt Olun"
 }

@@ -1,0 +1,40 @@
+.navbar{
+    background-color: #3f729b!important;
+
+    .logo {
+        background-image: url("../../../../public/images/logo.png");
+        background-size:100%;
+        background-repeat: no-repeat;
+        width: 100px;
+        padding-top: 30%;
+    }
+    
+    .nav-link{
+        padding: 0;
+    }
+
+    .dropdown-item, .nav-link{
+        cursor: pointer;
+        font-size: 10pt;
+    }
+
+    .dropdown-menu{
+        background-color: #3f729b;
+    }
+
+    .dropdown-item:hover{
+        background-color: rgba($color: #000000, $alpha: 0.2);
+    }
+
+    i{font-size: 10pt;}
+
+    .language-dropdown{
+        .dropdown-menu{
+            background-color: #3f729b;
+        }
+
+        .dropdown-item:hover{
+            background-color: rgba($color: #000000, $alpha: 0.2);
+        }
+    }
+}

@@ -15,22 +15,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
 
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { ChangeLanguge } from "../../../../store/actions/languageActions";
+import { useDispatch } from "react-redux";
+import LanguageSelect from "../../../../shared/components/language-select/LanguageSelect";
+
+import toastr from "toastr";
 
 export default function LoginPage() {
   const dispatch = useDispatch();
-  const { t, i18n } = useTranslation();
-  const languageState = useSelector((state) => state.language);
-  const onLanguageClick = () => {
-    if (languageState.activeKey == "tr") {
-      dispatch(ChangeLanguge("en"));
-      i18n.changeLanguage("en");
-    } else {
-      dispatch(ChangeLanguge("tr"));
-      i18n.changeLanguage("tr");
-    }
-  };
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
   const initialUserCredentials = { email: "", password: "" };
@@ -99,13 +91,8 @@ export default function LoginPage() {
                 <Link to="/register">{t("login.signup")}</Link>
               </p>
             </div>
-            <div className="w-100 text-center">
-              <Button
-                label={t("login.language.button")}
-                link
-                className="language-button"
-                onClick={onLanguageClick}
-              />
+            <div className="w-100 text-center language-dropdown">
+              <LanguageSelect></LanguageSelect>
             </div>
           </div>
         </div>

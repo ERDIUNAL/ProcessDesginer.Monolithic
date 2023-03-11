@@ -1,10 +1,14 @@
 {
+    "language.select.code":"gb",
+    "language.select.text":"English",
+
+    "error.network":"Network Error",
+    
     "login.email": "E-Mail",
     "login.email.error.empty": "E-Mail cannot be empty",
     "login.password": "Password",
     "login.password.error.empty": "Password cannot be empty",
     "login.submit": "Login",
 	"login.haveaccount": "Don't have account?",
-	"login.signup": "Sign Up",
-	"login.language.button": "Türkçe"
+	"login.signup": "Sign Up"
 }

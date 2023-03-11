@@ -1,0 +1,25 @@
+img{
+    height: 18px;
+    width: 24px;
+    margin: 0 4px 0 0
+}
+
+span{
+    font-size: 10pt;
+    line-height: 18px;
+};
+
+.dropdown-menu{
+    min-width: none;
+    --bs-dropdown-min-width: none;
+}
+
+.dropdown-item{
+    cursor: pointer;
+    font-size: 10pt;
+    
+    img{
+        margin-bottom: 4px;
+    }
+}
+

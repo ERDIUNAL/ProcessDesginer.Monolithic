@@ -9,6 +9,7 @@ import {
   handleAuthException,
   handleBusinessException,
   handleValidationException,
+  handleDefaultException,
 } from "./exeptionHandlers";
 import { getItem } from "./localStorage";
 
@@ -27,19 +28,26 @@ instance.interceptors.response.use(
     return response;
   },
   (error) => {
-    switch (error.response.data.Type) {
-      case BUSINESS_EXCEPTION:
-        handleBusinessException(error.response.data);
-        break;
-      case VALIDATION_EXCEPTION:
-        handleValidationException(error.response.data);
-        break;
-      case AUTH_EXCEPTION:
-        handleAuthException();
-        break;
-      default:
-        break;
+    console.log(error);
+
+    if (error.code === "ERR_NETWORK") {
+      handleDefaultException(error.message);
+    } else {
+      switch (error.response.data.Type) {
+        case BUSINESS_EXCEPTION:
+          handleBusinessException(error.response.data);
+          break;
+        case VALIDATION_EXCEPTION:
+          handleValidationException(error.response.data);
+          break;
+        case AUTH_EXCEPTION:
+          handleAuthException();
+          break;
+        default:
+          break;
+      }
     }
+
     return Promise.reject(error);
   }
 );

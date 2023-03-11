@@ -11,3 +11,7 @@ export const handleValidationException = (error) => {
 };
 
 export const handleAuthException = () => {};
+
+export const handleDefaultException = (message) => {
+  toastr.error(message);
+};
